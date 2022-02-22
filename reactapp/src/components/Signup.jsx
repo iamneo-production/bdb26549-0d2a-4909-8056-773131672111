@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import axios from "axios";
 import"./Style.css";
+
 
 export class Signup extends Component {
     constructor() {
@@ -8,9 +10,9 @@ export class Signup extends Component {
         this.state = {
             name: "",
             email: "",
-            userName: "",
-            phone: "",
             password: "",
+            username: "",
+            mobile:"",
             confirmPassword: "",
         }
         this.handleSubmit=this.handleSubmit.bind(this)
@@ -28,13 +30,13 @@ export class Signup extends Component {
     }
     usernamehandler = (event) => {
         this.setState({
-            userName: event.target.value
+            username: event.target.value
         })
     }
 
     phonehandler = (event) => {
         this.setState({
-            phone: event.target.value
+            mobile: event.target.value
         })
     }
 
@@ -51,8 +53,21 @@ export class Signup extends Component {
     }
 
     handleSubmit = (event) => {
-        
-        if(this.state.password!==this.state.confirmPassword)
+
+        if(this.state.mobile.toString().length!==10)
+        {
+            alert(`Phone number must contains 10 digits.`)
+        }
+        else if(this.state.password.toString().length <6)
+        {
+            alert(`Password must contain atleast 6 characters and contain atleast 1 number, 1 Uppercase, 1 Lowercase & 1 Special character.`)
+        }
+        else if(this.state.password.search(/[0-9]/)===-1 || this.state.password.search(/[a-z]/)===-1 
+        || this.state.password.search(/[A-Z]/)===-1 || this.state.password.search(/[!\@\#\$\^\&\*\(\)\+\=\-\/\?\.\,\>\<\}\{\]\[\'\"\;\:\]\}\{\`\~]/)===-1 )
+        {
+            alert(`Password must contain atleast 6 characters and contain atleast 1 number, 1 Uppercase, 1 Lowercase & 1 Special character.`)
+        }
+        else if(this.state.password!==this.state.confirmPassword)
         {
             alert(`Password and Confirm Password should be same`)
         }
@@ -61,15 +76,34 @@ export class Signup extends Component {
             this.setState({
             name: "",
             email: "",
-            userName: "",
-            phone: "",
+            username: "",
+            mobile: "",
             password: "",
             confirmPassword: "",
         })
         alert(`Congratulations! ${this.state.name} you are registered successfully.`)
         }
         
-        event.preventDefault()
+        event.preventDefault();
+        
+        console.log(this.state);
+        const user = {
+            name: this.state.name,
+            email: this.state.email,
+            username: this.state.username,
+            mobile: this.state.mobile,
+            password: this.state.password,
+            // confirmPassword: this.state.confirmPassword,
+        }
+        axios
+        .post("http://localhost:8080/user/signup", user)
+        .then((response) => {
+            console.log(response);
+            // this.setState({userId:response.data.userId})
+        })
+        .catch((error) => {
+            console.log(error);
+        });
         
     }
   render() {
@@ -91,11 +125,11 @@ export class Signup extends Component {
                         </div>
                         <div className="mb-3">
                             <label htmlFor="exampleInputEmail1" className="form-label">Username</label>
-                            <input type="text" value={this.state.userName} onChange={this.usernamehandler} className="form-control" placeholder="Username" id="username" required/>
+                            <input type="text" value={this.state.username} onChange={this.usernamehandler} className="form-control" placeholder="Username" id="username" required/>
                         </div>
                         <div className="mb-3">
                             <label htmlFor="exampleInputEmail1" className="form-label">Phone Number</label>
-                            <input type="number" value={this.state.phone} onChange={this.phonehandler} className="form-control" placeholder="Enter Phone No." id="mobileNumber" required/>
+                            <input type="text" value={this.state.mobile} onChange={this.phonehandler} className="form-control" placeholder="Enter Phone No." id="mobileNumber" required/>
                         </div>
                         <div className="mb-3">
                             <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
@@ -115,3 +149,10 @@ export class Signup extends Component {
         )
     }
 }
+// import {axios} from './axios';
+// axios.create({
+//     baseURL:"https://localhost:8080",
+//     headers:{
+//         "Content-type":"application/json"
+//     }
+// });
