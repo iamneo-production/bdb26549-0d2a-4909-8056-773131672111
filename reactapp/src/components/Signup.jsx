@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from "axios";
-import"./styling.css";
-
+import"./Style.css";
+import { Link } from "react-router-dom";
 
 export class Signup extends Component {
     constructor() {
@@ -96,10 +96,9 @@ export class Signup extends Component {
             // confirmPassword: this.state.confirmPassword,
         }
         axios
-        .post("http://localhost:3000/user/signup", user)
+        .post("http://localhost:8080/user/signup", user)
         .then((response) => {
             console.log(response);
-            alert
             // this.setState({userId:response.data.userId})
         })
         .catch((error) => {
@@ -141,8 +140,7 @@ export class Signup extends Component {
                             <input type="password" value={this.state.confirmPassword} onChange={this.confirmPasswordhandler} className="form-control" placeholder="Renter Password" id="confirmPassword" required/>
                         </div>
                         <button type="submit" value="Submit" className="btn btn-primary">Register</button>
-                        <p>Already a User/Admin ? <a href='Login'>Login</a></p>
-                        
+                        <p>Already have an account? <Link to="/login">Login</Link></p>
                     </form>
                 </div>
                 

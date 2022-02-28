@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-//import axios from "axios";
-import"./styling.css";
+import axios from "axios";
+import"./Style.css";
+import { Link } from 'react-router-dom';
 
 export class Login extends Component {
     constructor() {
@@ -9,7 +10,6 @@ export class Login extends Component {
         this.state = {
             email: "",
             password: "",
-            msg: "",
         }
         this.handleSubmit=this.handleSubmit.bind(this)
     }
@@ -48,20 +48,20 @@ export class Login extends Component {
         
         event.preventDefault();
         
-        // console.log(this.state);
-        // const user = {
-        //     email: this.state.email,
-        //     password: this.state.password,
-        // }
-        // axios
-        // .post("http://localhost:8080/user/signup", user)
-        // .then((response) => {
-        //     console.log(response);
-        //     // this.setState({userId:response.data.userId})
-        // })
-        // .catch((error) => {
-        //     console.log(error);
-        // });
+        console.log(this.state);
+        const user = {
+            email: this.state.email,
+            password: this.state.password,
+        }
+        axios
+        .post("http://localhost:8080/user/signup", user)
+        .then((response) => {
+            console.log(response);
+            // this.setState({userId:response.data.userId})
+        })
+        .catch((error) => {
+            console.log(error);
+        });
         
     }
     render() {
@@ -82,7 +82,7 @@ export class Login extends Component {
                         </div>
                         <div className="loginbtn">
                         <button type="submit" value="Submit" className="btn btn-primary">Login</button>
-                        <p>New User/Admin ? <a href='Signup'>Sign up</a></p>
+                        <p>New User/Admin? <Link to="/signup">Signup</Link></p>
                         </div>
                     </form>
                     </div>
