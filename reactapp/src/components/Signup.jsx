@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios";
-import"./Style.css";
+import"./style.css";
 
 
 export class Signup extends Component {
@@ -62,11 +62,11 @@ export class Signup extends Component {
         {
             alert(`Password must contain atleast 6 characters and contain atleast 1 number, 1 Uppercase, 1 Lowercase & 1 Special character.`)
         }
-        else if(this.state.password.search(/[0-9]/)===-1 || this.state.password.search(/[a-z]/)===-1 
-        || this.state.password.search(/[A-Z]/)===-1 || this.state.password.search(/[!\@\#\$\^\&\*\(\)\+\=\-\/\?\.\,\>\<\}\{\]\[\'\"\;\:\]\}\{\`\~]/)===-1 )
-        {
-            alert(`Password must contain atleast 6 characters and contain atleast 1 number, 1 Uppercase, 1 Lowercase & 1 Special character.`)
-        }
+        // else if(this.state.password.search(/[0-9]/)===-1 || this.state.password.search(/[a-z]/)===-1 
+        // || this.state.password.search(/[A-Z]/)===-1 || this.state.password.search(/[!\@\#\$\^\&\*\(\)\+\=\-\/\?\.\,\>\<\}\{\]\[\'\"\;\:\]\}\{\`\~]/)===-1 )
+        // {
+        //     alert(`Password must contain atleast 6 characters and contain atleast 1 number, 1 Uppercase, 1 Lowercase & 1 Special character.`)
+        // }
         else if(this.state.password!==this.state.confirmPassword)
         {
             alert(`Password and Confirm Password should be same`)
@@ -140,7 +140,7 @@ export class Signup extends Component {
                             <input type="password" value={this.state.confirmPassword} onChange={this.confirmPasswordhandler} className="form-control" placeholder="Renter Password" id="confirmPassword" required/>
                         </div>
                         <button type="submit" value="Submit" className="btn btn-primary">Register</button>
-                        <p>Already a User/Admin ? <a href='Login'>Login</a></p>
+                        <p>Already a User/Admin ? <a href='/login'>Login</a></p>
                         
                     </form>
                 </div>

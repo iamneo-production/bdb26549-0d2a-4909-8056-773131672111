@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios";
-import"./Style.css";
+import"./style.css";
 
 export class Login extends Component {
     constructor() {
@@ -32,11 +32,11 @@ export class Login extends Component {
         {
             alert(`Password must contain atleast 8 characters.`)
         }
-        else if(this.state.password.search(/[0-9]/)===-1 || this.state.password.search(/[a-z]/)===-1 
-        || this.state.password.search(/[A-Z]/)===-1 || this.state.password.search(/[!\@\#\$\^\&\*\(\)\+\=\-\/\?\.\,\>\<\}\{\]\[\'\"\;\:\]\}\{\`\~]/)===-1 )
-        {
-            alert(`Password must contain atleast 1 number, 1 Uppercase, 1 Lowercase and 1 Special character.`)
-        }
+        // else if(this.state.password.search(/[0-9]/)===-1 || this.state.password.search(/[a-z]/)===-1 
+        // || this.state.password.search(/[A-Z]/)===-1 || this.state.password.search(/[!\@\#\$\^\&\*\(\)\+\=\-\/\?\.\,\>\<\}\{\]\[\'\"\;\:\]\}\{\`\~]/)===-1 )
+        // {
+        //     alert(`Password must contain atleast 1 number, 1 Uppercase, 1 Lowercase and 1 Special character.`)
+        // }
         else{
             console.log(this.state);
             this.setState({
@@ -82,7 +82,7 @@ export class Login extends Component {
                         </div>
                         <div className="loginbtn">
                         <button type="submit" value="Submit" className="btn btn-primary">Login</button>
-                        <p>New User/Admin ? <a href='Signup'>Sign up</a></p>
+                        <p>New User/Admin ? <a href='/'>Sign up</a></p>
                         </div>
                     </form>
                     </div>
