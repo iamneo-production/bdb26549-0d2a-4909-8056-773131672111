@@ -54,7 +54,7 @@ export class Login extends Component {
             password: this.state.password,
         }
         axios
-        .post("http://localhost:8080/user/signup", user)
+        .post("http://localhost:8080/user/signin", user)
         .then((response) => {
             console.log(response);
             // this.setState({userId:response.data.userId})
