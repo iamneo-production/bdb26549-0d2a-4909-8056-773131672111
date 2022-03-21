@@ -12,7 +12,7 @@ export class Signup extends Component {
             email: "",
             password: "",
             username: "",
-            mobile:"",
+            mobileNumber:"",
             confirmPassword: "",
         }
         this.handleSubmit=this.handleSubmit.bind(this)
@@ -36,7 +36,7 @@ export class Signup extends Component {
 
     phonehandler = (event) => {
         this.setState({
-            mobile: event.target.value
+            mobileNumber: event.target.value
         })
     }
 
@@ -54,7 +54,7 @@ export class Signup extends Component {
 
     handleSubmit = (event) => {
 
-        if(this.state.mobile.toString().length!==10)
+        if(this.state.mobileNumber.toString().length!==10)
         {
             alert(`Phone number must contains 10 digits.`)
         }
@@ -77,7 +77,7 @@ export class Signup extends Component {
             name: "",
             email: "",
             username: "",
-            mobile: "",
+            mobileNumber: "",
             password: "",
             confirmPassword: "",
         })
@@ -85,21 +85,21 @@ export class Signup extends Component {
         }
         
         event.preventDefault();
-        
+        console.log(this.state.mobileNumber)
         console.log(this.state);
         const user = {
             name: this.state.name,
             email: this.state.email,
             username: this.state.username,
-            mobile: this.state.mobile,
+            mobileNumber: this.state.mobileNumber,
             password: this.state.password,
-            // confirmPassword: this.state.confirmPassword,
+            confirmPassword: this.state.confirmPassword,
         }
         axios
         .post("http://localhost:8080/user/signup", user)
         .then((response) => {
             console.log(response);
-            // this.setState({userId:response.data.userId})
+            this.setState({userId:response.data.userId})
         })
         .catch((error) => {
             console.log(error);
@@ -129,7 +129,7 @@ export class Signup extends Component {
                         </div>
                         <div className="mb-3">
                             <label htmlFor="exampleInputEmail1" className="form-label">Phone Number</label>
-                            <input type="text" value={this.state.mobile} onChange={this.phonehandler} className="form-control" placeholder="Enter Phone No." id="mobileNumber" required/>
+                            <input type="text" value={this.state.mobileNumber} onChange={this.phonehandler} className="form-control" placeholder="Enter Phone No." id="mobileNumber" required/>
                         </div>
                         <div className="mb-3">
                             <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
@@ -149,10 +149,10 @@ export class Signup extends Component {
         )
     }
 }
-// import {axios} from './axios';
-// axios.create({
-//     baseURL:"https://localhost:8080",
-//     headers:{
-//         "Content-type":"application/json"
-//     }
-// });
+
+axios.create({
+    baseURL:"https://localhost:8080",
+    headers:{
+        "Content-type":"application/json"
+    }
+});

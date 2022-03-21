@@ -16,7 +16,7 @@ const Layout = ({ children }) => {
                             <Link
                                 className="nav-link"
 
-                                to="/admin-profile"
+                                to="/viewacademy"
                             >
                                 Academy
                             </Link>

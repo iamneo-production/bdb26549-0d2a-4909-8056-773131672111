@@ -28,9 +28,9 @@ export class Login extends Component {
 
     handleSubmit = (event) => {
 
-        if(this.state.password.toString().length <=8)
+        if(this.state.password.toString().length <=6)
         {
-            alert(`Password must contain atleast 8 characters.`)
+            alert(`Password must contain atleast 6 characters.`)
         }
         // else if(this.state.password.search(/[0-9]/)===-1 || this.state.password.search(/[a-z]/)===-1 
         // || this.state.password.search(/[A-Z]/)===-1 || this.state.password.search(/[!\@\#\$\^\&\*\(\)\+\=\-\/\?\.\,\>\<\}\{\]\[\'\"\;\:\]\}\{\`\~]/)===-1 )
@@ -54,10 +54,10 @@ export class Login extends Component {
             password: this.state.password,
         }
         axios
-        .post("http://localhost:8080/user/signup", user)
+        .post("http://localhost:8080/user/signin", user)
         .then((response) => {
             console.log(response);
-            // this.setState({userId:response.data.userId})
+            this.setState({userId:response.data.userId})
         })
         .catch((error) => {
             console.log(error);
