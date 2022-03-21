@@ -1,17 +1,47 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Layout from "../Navbar.jsx"
 import { Form, Button, FormGroup, FormControl, ControlLabel, Row, Col } from "react-bootstrap"
-const initialValues = {
-    instituteName: "",
-    mobile: "",
-    instituteid: "",
-    instituteimgurl: "",
-    email: "",
-    instituteAddress: "",
-    instituteDescription: "",
-};
+import axios from "axios";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+
 function EditAcademy() {
+    const initialValues = {
+        instituteName: "",
+        mobile: "",
+        instituteid: "",
+        instituteimgurl: "",
+        email: "",
+        instituteAddress: "",
+        instituteDescription: "",
+    };
+    
     const [values, setValues] = useState(initialValues);
+    let {instituteName}=useParams();
+    let navigate = useNavigate();
+    const viewInstituteByName = () => {
+        axios.get(`http://localhost:8080/admin/viewInstituteByName/`+instituteName).then(
+            (res) => {
+                setValues(res.data);
+                console.log(res.data);
+
+
+            }
+        )
+    }
+
+    const updateInstitute = (values) => {
+        axios.put(`http://localhost:8080/admin/updateInstitute`,values).then(
+            res => {
+
+                console.log(res.data);
+                navigate(-1);
+            }
+        )
+    }
+
+    useEffect(() => {
+        viewInstituteByName();
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -31,9 +61,9 @@ function EditAcademy() {
             email: "",
             instituteAddress: "",
             instituteDescription: "",
-            buttonText:"Submitted",
+            buttonText: "Submitted",
         });
-
+        updateInstitute (values);
     }
     return (
         <Layout>
@@ -101,9 +131,8 @@ function EditAcademy() {
                     </Row>
                 </Form.Group>
 
-                <Button className="float-end" variant="success" type="submit" >
-                    Edit Academy
-
+                <Button className="float-end" variant="success" type="submit"  >
+                    Update Academy
                 </Button>
             </Form>
         </Layout>

@@ -5,6 +5,7 @@ import { Form, Button, FormGroup, FormControl, ControlLabel, Row, Col, Nav, Card
 
 import { Trash } from 'react-bootstrap-icons';
 import { Pencil } from 'react-bootstrap-icons';
+import { Link, Navigate, useNavigate } from "react-router-dom";
 const columnsPerRow = 2;
 function Viewacademy() {
 
@@ -12,7 +13,7 @@ function Viewacademy() {
     const [search, setSearch] = useState([]);
     const [del, setDel] = useState([]);
     const [instituteName, setinstituteName] = useState("");
-   
+   let navigate =useNavigate();
 
    
   const handleSubmit = (event) => {
@@ -38,6 +39,11 @@ function Viewacademy() {
             }
         )
     }
+    const updateInstitute=(instituteName)=>{
+          navigate(`/editacademy/${instituteName}`);
+    }
+    
+  
     const deleteInstitute = (instituteId) => {
 
         axios.delete(`http://localhost:8080/admin/deleteInstitute/${instituteId}`).then(
@@ -95,7 +101,7 @@ function Viewacademy() {
                                     </Card.Body>
 
                                     <Card.Body>
-                                        <Card.Link href="/editacademy"><Pencil size="30" /></Card.Link>
+                                        <Card.Link ><Pencil size="30" onClick={()=>updateInstitute(academy.instituteName)}/></Card.Link>
                                         <Card.Link href="#">< Trash size="30" onClick={() => deleteInstitute(academy.instituteId)} /></Card.Link>
 
                                     </Card.Body>
@@ -109,11 +115,9 @@ function Viewacademy() {
             </Container>
             
             <Button className="float-end" variant="success" type="submit" >
-                <Nav>
-                    <Nav.Item>
-                        <Nav.Link href="/addacademy"> Add Academy</Nav.Link>
-                    </Nav.Item>
-                </Nav>
+                
+                        <a href="/addacademy"> Add Academy</a>
+
             </Button>
 
         </Layout>

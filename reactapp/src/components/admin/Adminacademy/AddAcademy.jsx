@@ -6,7 +6,6 @@ import axios from "axios";
 const initialValues = {
     instituteName: "",
     mobile: "",
-    instituteid: "",
     instituteimgurl: "",
     email: "",
     instituteAddress: "",
@@ -24,22 +23,23 @@ function AddAcademy() {
     };
     const handleSubmit = (e) => {
         e.preventDefault(handleChange);
-        axios.post("http://localhost:8080/admin/addInstitute", { ...values })
-        .then(res => {
-          console.log(res);
-          console.log(res.data);
-        })
+        console.log(values)
         setValues({
             ...values,
             instituteName: "",
             mobile: "",
-            instituteid: "",
             instituteimgurl: "",
             email: "",
             instituteAddress: "",
             instituteDescription: "",
             buttonText: "Submitted",
         });
+        axios.post("http://localhost:8080/admin/addInstitute", { ...values })
+        .then(res => {
+          console.log(res);
+          console.log(res.data);
+        })
+       
     }
     
     return (
@@ -67,13 +67,7 @@ function AddAcademy() {
 
                 <Form.Group className="mb-3 " >
                     <Row>
-                        <Col>
-                            <Form.Control type="text"
-                                value={values.instituteid}
-                                placeholder="Enter academy id "
-                                name="instituteid"
-                                onChange={handleChange} />
-                        </Col>
+                        
                         <Col>
                             <Form.Control type="text"
                                 value={values.email}
