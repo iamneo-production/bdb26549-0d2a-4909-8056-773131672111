@@ -39,6 +39,7 @@ export function AddStudent() {
       email,`;`,dob,`;`,studentId,`;`,courseId,`;`,address1,`;`,address2,`;`,city,`;`,state,`;`,pincode,`;`,nationality);
       alert(`Student "${firstName}" added successfully.`)}
     }
+    
   return (
          <div>
 
