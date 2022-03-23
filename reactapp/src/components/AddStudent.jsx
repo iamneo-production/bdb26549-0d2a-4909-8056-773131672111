@@ -26,6 +26,7 @@ export function AddStudent() {
 
     function handleSubmit(e){
       e.preventDefault();
+      
       if(phoneNumber1.toString().length!==10){
         alert(`Phone number must contains 10 digits.`)
       }
