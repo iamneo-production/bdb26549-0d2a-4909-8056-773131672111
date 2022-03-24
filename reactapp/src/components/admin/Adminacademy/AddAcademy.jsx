@@ -1,19 +1,21 @@
 import { useState,useEffect } from "react";
 import Layout from "../Navbar.jsx"
 import { Form, Button, FormGroup, FormControl, ControlLabel, Row, Col } from "react-bootstrap"
-
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-const initialValues = {
-    instituteName: "",
-    mobile: "",
-    instituteimgurl: "",
-    email: "",
-    instituteAddress: "",
-    instituteDescription: "",
-};
-function AddAcademy() {
-    const [values, setValues] = useState(initialValues);
 
+function AddAcademy() {
+    const initialValues = {
+        instituteName: "",
+        mobile: "",
+        instituteimgurl: "",
+        email: "",
+        instituteAddress: "",
+        instituteDescription: "",
+    };
+    
+    const [values, setValues] = useState(initialValues);
+    let navigate = useNavigate();
     const handleChange = (e) => {
         const { name, value } = e.target;
         setValues({
@@ -33,13 +35,16 @@ function AddAcademy() {
             instituteAddress: "",
             instituteDescription: "",
             buttonText: "Submitted",
+            
         });
+        
         axios.post("http://localhost:8080/admin/addInstitute", { ...values })
         .then(res => {
           console.log(res);
           console.log(res.data);
+         
         })
-       
+        navigate(-1);
     }
     
     return (

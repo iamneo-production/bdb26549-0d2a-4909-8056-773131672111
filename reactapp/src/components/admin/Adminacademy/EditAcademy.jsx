@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Layout from "../Navbar.jsx"
 import { Form, Button, FormGroup, FormControl, ControlLabel, Row, Col } from "react-bootstrap"
 import axios from "axios";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function EditAcademy() {
     const initialValues = {

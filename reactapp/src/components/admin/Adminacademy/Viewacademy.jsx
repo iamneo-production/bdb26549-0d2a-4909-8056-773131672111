@@ -13,14 +13,14 @@ function Viewacademy() {
     const [search, setSearch] = useState([]);
     const [del, setDel] = useState([]);
     const [instituteName, setinstituteName] = useState("");
-   let navigate =useNavigate();
+    let navigate = useNavigate();
 
-   
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    alert(`The name you entered was: ${instituteName}`)
-    setinstituteName("")
-  }
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        alert(`The name you entered was: ${instituteName}`)
+        setinstituteName("")
+    }
     const getDetails = () => {
         axios.get("http://localhost:8080/admin/viewInstitute").then(
             (response) => {
@@ -29,21 +29,24 @@ function Viewacademy() {
             }
         );
     };
-    const viewInstituteByName=(instituteName)=>{
+    const viewInstituteByName = (instituteName) => {
         axios.get(`http://localhost:8080/admin/viewInstituteByName/${instituteName}`).then(
-            (res)=>{
+            (res) => {
                 setInstitute([]);
                 setInstitute([res.data]);
                 console.log(res.data);
-              
+
             }
         )
     }
-    const updateInstitute=(instituteName)=>{
-          navigate(`/editacademy/${instituteName}`);
+    const updateInstitute = (instituteName) => {
+        navigate(`/editacademy/${instituteName}`);
     }
-    
-  
+    const addInstitute = () => {
+        navigate(`/addacademy`);
+    }
+
+
     const deleteInstitute = (instituteId) => {
 
         axios.delete(`http://localhost:8080/admin/deleteInstitute/${instituteId}`).then(
@@ -72,7 +75,7 @@ function Viewacademy() {
                                 placeholder="Type here to search academy"
                                 onChange={(e) => setinstituteName(e.target.value)}
                             /><br />
-                            <Button variant="success" type="submit"  onClick={()=>viewInstituteByName(instituteName)}>
+                            <Button variant="success" type="submit" onClick={() => viewInstituteByName(instituteName)}>
                                 Search
                             </Button>
                         </Col>
@@ -101,7 +104,7 @@ function Viewacademy() {
                                     </Card.Body>
 
                                     <Card.Body>
-                                        <Card.Link ><Pencil size="30" onClick={()=>updateInstitute(academy.instituteName)}/></Card.Link>
+                                        <Card.Link ><Pencil size="30" onClick={() => updateInstitute(academy.instituteName)} /></Card.Link>
                                         <Card.Link href="#">< Trash size="30" onClick={() => deleteInstitute(academy.instituteId)} /></Card.Link>
 
                                     </Card.Body>
@@ -113,10 +116,10 @@ function Viewacademy() {
                     }
                 </Row>
             </Container>
-            
-            <Button className="float-end" variant="success" type="submit" >
-                
-                        <a href="/addacademy"> Add Academy</a>
+
+            <Button className="float-end" variant="success" type="submit" onClick={() => addInstitute()} >
+
+                Add Academy
 
             </Button>
 
