@@ -11,13 +11,17 @@ public class Course {
     private String courseName;
     private String courseDescription;
     private int courseDuration;
+    private int noOfStudents;
+    private String courseTiming;
 
-    public Course(long courseId, String courseName, String courseDescription, int courseDuration) {
+    public Course(long courseId, String courseName, String courseDescription, int courseDuration, int noOfStudents , String courseTiming) {
         super();
         this.courseId = courseId;
         this.courseName = courseName;
         this.courseDescription = courseDescription;
         this.courseDuration = courseDuration;
+        this.noOfStudents = noOfStudents;
+        this.courseTiming = courseTiming;
     }
     public Course() {
         super();
@@ -56,6 +60,22 @@ public class Course {
         this.courseDuration = courseDuration;
     }
 
+    public int getNoOfStudents() {
+        return noOfStudents;
+    }
+
+    public void setNoOfStudents(int noOfStudents) {
+        this.noOfStudents = noOfStudents;
+    }
+
+    public String getCourseTiming() {
+        return courseTiming;
+    }
+
+    public void setCourseTiming(String courseTiming) {
+        this.courseTiming = courseTiming;
+    }
+
     @Override
     public String toString() {
         return "Course{" +
@@ -63,6 +83,8 @@ public class Course {
                 ", courseName='" + courseName + '\'' +
                 ", courseDescription='" + courseDescription + '\'' +
                 ", courseDuration=" + courseDuration +
+                ", noOfStudents=" + noOfStudents +
+                ", courseName='" + courseName + '\'' +
                 '}';
     }
 }
