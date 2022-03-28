@@ -20,7 +20,7 @@ function App() {
         <Route path="/course" exact element={<AdminCourse />} />
         <Route path="/student" exact element={<Student />} />
         <Route path="/addacademy" exact element={<AddAcademy/>} />
-        <Route path="/editacademy/:instituteName" exact element={<EditAcademy/>}/>
+        <Route path="/editacademy/:instituteId" exact element={<EditAcademy/>}/>
         <Route path="/addcourse" exact element={<AddEditCourse/>}/>
         
       </Routes>  

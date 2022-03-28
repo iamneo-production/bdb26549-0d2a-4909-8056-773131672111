@@ -1,58 +1,19 @@
 import React, { Fragment } from "react";
 import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
-import { Nav, Navbar, NavDropdown, Container } from "react-bootstrap";
-
+import { Nav, Navbar, Container } from "react-bootstrap";
+import "./Navbar.css"
 const Layout = ({ children }) => {
     const nav = () => (
-        <Navbar bg="success" expand="lg">
+        <Navbar bg="success" expand="lg" variant="dark" >
             <Container>
-
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <div className="nav-link">
-
-                            <Link
-                                className="nav-link"
-
-                                to="/viewacademy"
-                            >
-                                Academy
-                            </Link>
-                        </div>
-                        <div className="nav-link">
-
-                            <Link
-                                className="nav-link"
-
-                                to="/course"
-                            >
-                                Course
-                            </Link>
-                        </div>
-                        <div className="nav-link">
-
-                            <Link
-                                className="nav-link"
-
-                                to="/student"
-                            >
-                               Student
-                            </Link>
-                        </div>
-                        <div className="nav-link">
-
-                            <Link
-                                className="nav-link"
-
-                                to="/"
-                            >
-                                Logout
-                            </Link>
-                        </div>
-
-
+                        <Nav.Link href="/viewacademy">Academy</Nav.Link>
+                        <Nav.Link href="/course">Course</Nav.Link>
+                        <Nav.Link href="/student">Student</Nav.Link>
+                        <Nav.Link href="/">Logout</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>

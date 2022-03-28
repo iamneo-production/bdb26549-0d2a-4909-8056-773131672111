@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import Layout from "../Navbar.jsx"
 import axios from "axios";
+import "./Academy.css"
+
 import { Form, Button, FormGroup, FormControl, ControlLabel, Row, Col, Nav, Card, ListGroup, ListGroupItem, Container } from "react-bootstrap"
 
 import { Trash } from 'react-bootstrap-icons';
@@ -39,8 +41,10 @@ function Viewacademy() {
             }
         )
     }
-    const updateInstitute = (instituteName) => {
-        navigate(`/editacademy/${instituteName}`);
+
+    const updateInstitute = (instituteId) => {
+        navigate(`/editacademy/${instituteId}`);
+        console.log(instituteId);
     }
     const addInstitute = () => {
         navigate(`/addacademy`);
@@ -104,7 +108,7 @@ function Viewacademy() {
                                     </Card.Body>
 
                                     <Card.Body>
-                                        <Card.Link ><Pencil size="30" onClick={() => updateInstitute(academy.instituteName)} /></Card.Link>
+                                        <Card.Link ><Pencil size="30" onClick={() => updateInstitute(academy.instituteId)} /></Card.Link>
                                         <Card.Link href="#">< Trash size="30" onClick={() => deleteInstitute(academy.instituteId)} /></Card.Link>
 
                                     </Card.Body>

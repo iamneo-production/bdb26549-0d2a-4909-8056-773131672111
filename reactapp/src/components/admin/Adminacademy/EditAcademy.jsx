@@ -8,7 +8,7 @@ function EditAcademy() {
     const initialValues = {
         instituteName: "",
         mobile: "",
-        instituteid: "",
+        instituteId: "",
         instituteimgurl: "",
         email: "",
         instituteAddress: "",
@@ -16,14 +16,23 @@ function EditAcademy() {
     };
     
     const [values, setValues] = useState(initialValues);
-    let {instituteName}=useParams();
+    let {instituteId} = useParams()
     let navigate = useNavigate();
-    const viewInstituteByName = () => {
+   /* const viewInstituteByName = () => {
         axios.get(`http://localhost:8080/admin/viewInstituteByName/`+instituteName).then(
             (res) => {
                 setValues(res.data);
                 console.log(res.data);
 
+
+            }
+        )
+    }*/
+    const viewInstituteById = () => {
+        axios.get(`http://localhost:8080/admin/viewInstituteById/`+instituteId).then(
+            (res) => {
+                setValues(res.data);
+                console.log(res.data);
 
             }
         )
@@ -40,7 +49,7 @@ function EditAcademy() {
     }
 
     useEffect(() => {
-        viewInstituteByName();
+        viewInstituteById();
     }, []);
 
     const handleChange = (e) => {
@@ -56,7 +65,7 @@ function EditAcademy() {
             ...values,
             instituteName: "",
             mobile: "",
-            instituteid: "",
+            instituteId: "",
             instituteimgurl: "",
             email: "",
             instituteAddress: "",
@@ -90,13 +99,7 @@ function EditAcademy() {
 
                 <Form.Group className="mb-3 " >
                     <Row>
-                        <Col>
-                            <Form.Control type="text"
-                                value={values.instituteid}
-                                placeholder="Enter academy id "
-                                name="instituteid"
-                                onChange={handleChange} />
-                        </Col>
+                       
                         <Col>
                             <Form.Control type="text"
                                 value={values.email}
