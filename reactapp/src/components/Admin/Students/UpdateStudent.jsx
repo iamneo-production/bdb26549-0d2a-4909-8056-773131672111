@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import"./AddStudent.css";
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {Navbar} from '../Navbar.jsx';

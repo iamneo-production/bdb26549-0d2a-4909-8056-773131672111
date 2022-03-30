@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import axios from "axios";
-import"./Style.css";
 import { Link } from 'react-router-dom';
+
+import "./Style.css";
 
 export class Login extends Component {
     constructor() {
@@ -10,53 +11,123 @@ export class Login extends Component {
         this.state = {
             email: "",
             password: "",
+            username: "",
+            mobileNumber:"",
+            confirmPassword: "",
+            role:[""],
+            errors: {
+                email: "",
+                
+                password:"",
+
+              }       
         }
         this.handleSubmit=this.handleSubmit.bind(this)
     }
-
-    emailhandler = (event) => {
-        this.setState({
-            email: event.target.value
-        })
-    }
+    isEmailValid = email => {
+        //eslint-disable-next-line
+        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{3,}))$/;
+        return re.test(String(email).toLowerCase());
+      };
     
-    passwordhandler = (event) => {
+    
+    validateEmail = email => {
+        const errors = {
+          email: "",
+        };
+    
+        if (!this.isEmailValid(email)) {
+          errors.email = "Email is invalid";
+        }
+
+        this.setState(state => ({ ...state, errors }));
+    };
+    
+    
+     validatePassword= password =>{
+         const errors={
+             password:""
+         };
+         if(this.state.password.toString().length <6){
+             errors.password="Password must contain atleast 6 characters."
+         }
+         //eslint-disable-next-line
+         else if(this.state.password.search(/[0-9]/)===0 || this.state.password.search(/[a-z]/)===-1 ||
+                    this.state.password.search(/[A-Z]/)===-1 || 
+                    //eslint-disable-next-line
+                    this.state.password.search(/[!\@\#\$\^\&\*\(\)\+\=\-\/\?\.\,\>\<\}\{\]\[\'\"\;\:\]\}\{\`\~]/)===-1 )
+                    {   
+            errors.password="Password must contain atleast 1 number, 1 Uppercase, 1 Lowercase & 1 Special character."
+        }
+        
+        this.setState(state => ({ ...state, errors }));
+     }
+     
+     
+     
+      handleChange = ({ target: { name, value } }) => {
+        this.setState({ [name]: value });
+    
+        switch (name) {
+            case "email":
+                this.validateEmail(value);
+                break;
+            
+            case "password":
+              this.validatePassword(value);
+              break;
+            
+            default:
+            break;
+        }
+      };
+    
+
+    onChangeHandler = (event) => {
         this.setState({
-            password: event.target.value
+            [event.target.name]: event.target.value
         })
     }
-
+    // handleValidations=(event)=>{
+    //     if(this.state.password>0)
+    //         return true;
+    // }
+  
     handleSubmit = (event) => {
 
-        if(this.state.password.toString().length <=8)
+        if(this.state.password.toString().length <6)
         {
-            alert(`Password must contain atleast 8 characters.`)
+            alert(`Password must contain atleast 6 characters and contain atleast 1 number, 1 Uppercase, 1 Lowercase & 1 Special character.`)
         }
         else if(this.state.password.search(/[0-9]/)===-1 || this.state.password.search(/[a-z]/)===-1 
         || this.state.password.search(/[A-Z]/)===-1 || this.state.password.search(/[!\@\#\$\^\&\*\(\)\+\=\-\/\?\.\,\>\<\}\{\]\[\'\"\;\:\]\}\{\`\~]/)===-1 )
         {
-            alert(`Password must contain atleast 1 number, 1 Uppercase, 1 Lowercase and 1 Special character.`)
-        }
-        else{
-            console.log(this.state);
-            this.setState({
-            email: "",
-            password: "",
-        })
-        alert(`You are Logged in !`)
+            alert(`Password must contain atleast 6 characters and contain atleast 1 number, 1 Uppercase, 1 Lowercase & 1 Special character.`)
         }
         
+        else{
+            this.setState({
+                
+                email: "",
+                
+                password: "",
+                
+            })
+            alert(`Logged in`)
+        }
         event.preventDefault();
         
         console.log(this.state);
         const user = {
             email: this.state.email,
+            
             password: this.state.password,
         }
         axios
-        .post("http://localhost:8080/user/signin", user)
+        .post('http://localhost:8080/signup', user)
         .then((response) => {
             console.log(response);
+            window.location.href='/login';
             // this.setState({userId:response.data.userId})
         })
         .catch((error) => {
@@ -64,30 +135,49 @@ export class Login extends Component {
         });
         
     }
-    render() {
-        return(
-                <div className="login">
-                    <div className="head">
-                    <h3 id='h'>Login </h3>
-                    </div>
-                    <div className="loginBox">
-                    <form className='form' onSubmit={this.handleSubmit}>
+    
+  render() {
+      const {email,password}=this.state
+      const isEnabled = this.isEmailValid(email) 
+                               
+
+    return(
+        <div className='m'>
+            <div className='container'>
+                <div className="Regox">
+                    <form className='Regform'onSubmit={this.handleSubmit}>
+                        <h1 align ="center" id='h1'>Login</h1>
+                        <p></p>
+                        <p></p>
+                        
+
                         <div className="mb-3">
                             <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
-                            <input type="email" value={this.state.email} onChange={this.emailhandler} className="form-control" placeholder="Enter Email" id="email" required/>
+                            <input type="email" value={email} name='email' onChange={this.handleChange} className="form-control" placeholder="Enter Email" id="email" autocomplete="off" required/>
+                            {this.state.errors.email && <span style={{color:"yellow"}}>{this.state.errors.email}</span>}
                         </div>
+                        
+                        
                         <div className="mb-3">
                             <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
-                            <input type="password" value={this.state.password} onChange={this.passwordhandler} className="form-control" placeholder="Enter Password" id="password" required/>
+                            <input type="password" value={password} name='password' onChange={this.handleChange} className="form-control" placeholder="Enter Password" id="password" autoComplete='off' required/>
+                            {this.state.errors.password && <span style={{color:"yellow"}}>{this.state.errors.password}</span>}
+
                         </div>
-                        <div className="loginbtn">
-                        <button type="submit" value="Submit" className="btn btn-primary">Login</button>
-                        <p>New User/Admin? <Link to="/signup">Signup</Link></p>
-                        </div>
+                        
+                        <button disabled={!isEnabled} type="submit" value="Submit" className="btn btn-primary">Register</button>
+                        
+                        <p id='h1'>New User/Admin? <Link to="/signup">Signup</Link></p>
+                        
                     </form>
-                    </div>
-                    
                 </div>
-            )
-        }
+            </div>
+        </div>
+        )
     }
+}
+
+
+
+
+
