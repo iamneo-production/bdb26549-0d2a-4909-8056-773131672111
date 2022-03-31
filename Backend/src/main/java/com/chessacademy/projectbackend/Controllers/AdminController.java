@@ -3,6 +3,7 @@ package com.chessacademy.projectbackend.Controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,10 +20,8 @@ import com.chessacademy.projectbackend.Models.InstituteModel;
 import com.chessacademy.projectbackend.Service.CourseServices;
 import com.chessacademy.projectbackend.Service.InstituteService;
 
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
 
 @Component
 @RestController
@@ -33,12 +32,10 @@ public class AdminController {
 	@Autowired
 	private InstituteService instituteDetailsService;
 
-
 	@Autowired
 	private CourseServices courseService;
 
-
-	//INSTITUTE CONTROLLER
+	// INSTITUTE CONTROLLER
 
 	@PostMapping("/addInstitute")
 	public InstituteModel addAcademy(@RequestBody InstituteModel user) {
@@ -75,62 +72,57 @@ public class AdminController {
 
 	}
 
-
-
-
-
-	//COURSE CONTROLLER
+	// COURSE CONTROLLER
+	@GetMapping("/pagination/{offset}/{pageSize}")
+	private Page<CourseModel> getCourseWithPagination(@PathVariable int offset, @PathVariable int pageSize) {
+		Page<CourseModel> courseWithPagination = courseService.findCoursesWithPagination(offset, pageSize);
+		return courseWithPagination;
+	}
 
 	@GetMapping("/viewCourse")
-	public ResponseEntity<?> getCourses(){
+	public ResponseEntity<?> getCourses() {
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(this.courseService.getCourses());
-		}catch(Exception e){
-			return  new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
-
 	@GetMapping("viewCourseById/{courseId}")
-	public ResponseEntity<?> getCourse(@PathVariable String courseId){
+	public ResponseEntity<?> getCourse(@PathVariable String courseId) {
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(this.courseService.getCourse(Long.parseLong(courseId)));
-		}catch(Exception e){
-			return  new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@PostMapping("/addCourse")
-	public ResponseEntity<?> addCourse(@RequestBody CourseModel course){
+	public ResponseEntity<?> addCourse(@RequestBody CourseModel course) {
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(this.courseService.addCourse(course));
-		}catch(Exception e){
-			return  new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@PutMapping("/editCourse/{courseId}")
-	public ResponseEntity<?> updateCourse(@RequestBody CourseModel course){
+	public ResponseEntity<?> updateCourse(@RequestBody CourseModel course) {
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(this.courseService.updateCourse(course));
-		}catch(Exception e){
-			return  new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@DeleteMapping("/deleteCourse/{courseId}")
-	public ResponseEntity<?> deleteCourse(@PathVariable String courseId){
-		try{
-			return  ResponseEntity.status(HttpStatus.OK).body(this.courseService.deleteCourse(Long.parseLong(courseId)));
-		}catch(Exception e){
-			//return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("INTERNAL_SERVER_ERROR");
-			return  new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	public ResponseEntity<?> deleteCourse(@PathVariable String courseId) {
+		try {
+			return ResponseEntity.status(HttpStatus.OK).body(this.courseService.deleteCourse(Long.parseLong(courseId)));
+		} catch (Exception e) {
+			// return
+			// ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("INTERNAL_SERVER_ERROR");
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 }
-
-
-
-
-
-
