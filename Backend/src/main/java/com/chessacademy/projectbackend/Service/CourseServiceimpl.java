@@ -25,17 +25,14 @@ public class CourseServiceimpl implements CourseServices {
 
     }
 
-    /*
-     * @PostConstruct
-     * public void initDB() {
-     * List<CourseModel> courses = IntStream.rangeClosed(1, 200)
-     * .mapToObj(i -> new CourseModel(i, "product" + i, "product" + i, new
-     * Random().nextInt(100),
-     * new Random().nextInt(500), "5amto6pm"))
-     * .collect(Collectors.toList());
-     * courseDao.saveAll(courses);
-     * }
-     */
+    @PostConstruct
+    public void initDB() {
+        List<CourseModel> courses = IntStream.rangeClosed(1, 50)
+                .mapToObj(i -> new CourseModel(i, "Course " + i, "Course " + i, new Random().nextInt(100),
+                        new Random().nextInt(500), "5amto6pm"))
+                .collect(Collectors.toList());
+        courseDao.saveAll(courses);
+    }
 
     @Override
     public List<CourseModel> getCourses() {
@@ -53,8 +50,19 @@ public class CourseServiceimpl implements CourseServices {
     }
 
     @Override
-    public Page<CourseModel> findCoursesWithPagination(int offset, int pageSize) {
-        Page<CourseModel> courses = courseDao.findAll(PageRequest.of(offset, pageSize));
+    public int findTotalPage(int pageSize) {
+        List<CourseModel> courses = courseDao.findAll();
+        int recordCount = courses.size();
+        int size = recordCount / pageSize + 1;
+        return size;
+    }
+
+    @Override
+    public List<CourseModel> findCoursesWithPagination(int offset, int pageSize) {
+
+        Page<CourseModel> coursespage = courseDao.findAll(PageRequest.of(offset, pageSize));
+        List<CourseModel> courses = coursespage.toList();
+        // System.out.println(courses);
         return courses;
     }
 

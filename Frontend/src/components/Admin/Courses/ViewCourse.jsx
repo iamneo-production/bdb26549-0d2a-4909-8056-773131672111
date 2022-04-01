@@ -14,13 +14,18 @@ function ViewCourse(){
     let navigate = useNavigate();
     const [course, setCourse] = useState([]);
     const [del, setDel] = useState([]);
+    const [pagecount, setpageCount] = useState([]);
+    const [pageno, setPageno] = useState([]);
 
 
-    const getDetails = () => {
-        axios.get("http://localhost:8080/admin/pagination/"+2+"/"+10).then(
+    const getDetails = (pageno) => {
+        setPageno(pageno);
+        axios.get("http://localhost:8080/admin/viewCourse/"+pageno+"/"+10).then(
             (response) => {
-                setCourse(response.data);
-                console.log(response.data)
+                setCourse(response.data.courses);
+                setpageCount(response.data.count-1)
+                console.log(response.data.courses)
+
             }
         );
     };
@@ -35,18 +40,19 @@ function ViewCourse(){
 
                 setDel(res.data);
                 console.log(res.data);
-                getDetails();
+                getDetails(pageno)
             }
         );
     }
     const handlePageClick = (data)=>{
         console.log(data.selected)
+        getDetails(data.selected)
     }
     useEffect(() => {
-        getDetails();
+        getDetails(0);
     }, []);
    
-        return (
+       return (
             <div >
                 <Navbar/>
                     <div className='container'>
@@ -117,11 +123,11 @@ function ViewCourse(){
                         <a href="/admin/addCourse" className="btn btn-success">
                         <IoIosAddCircle />Add Course</a>
                     </div>  
-                    <ReactPaginate
+                   <ReactPaginate
                    previousLabel={'Previous'}
                    nextLabel={'Next'}
                    breakLabel={'...'}
-                   pageCount={15}
+                   pageCount={pagecount}
                    onPageChange={handlePageClick}
                    containerClassName={'pagination justify-content-center'}
                    pageClassName={'page-item'}
@@ -133,9 +139,9 @@ function ViewCourse(){
                    breakClassName={'page-item'}
                    breakLinkClassName={'page-link'}
                    activeClassName={'active'}
-                    />
+                    /> 
             </div>
-        )
+                    ) 
     }
 
 

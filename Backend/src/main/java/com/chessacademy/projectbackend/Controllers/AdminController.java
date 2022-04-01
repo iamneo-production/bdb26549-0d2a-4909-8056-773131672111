@@ -3,7 +3,6 @@ package com.chessacademy.projectbackend.Controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.chessacademy.projectbackend.Models.CourseModel;
 import com.chessacademy.projectbackend.Models.InstituteModel;
+import com.chessacademy.projectbackend.Payload.Response.ViewResponse;
 import com.chessacademy.projectbackend.Service.CourseServices;
 import com.chessacademy.projectbackend.Service.InstituteService;
 
@@ -73,21 +73,26 @@ public class AdminController {
 	}
 
 	// COURSE CONTROLLER
-	@GetMapping("/pagination/{offset}/{pageSize}")
-	private Page<CourseModel> getCourseWithPagination(@PathVariable int offset, @PathVariable int pageSize) {
-		Page<CourseModel> courseWithPagination = courseService.findCoursesWithPagination(offset, pageSize);
-		return courseWithPagination;
+	@GetMapping("/viewCourse/{offset}/{pageSize}")
+	private ViewResponse getCourseWithPagination(@PathVariable int offset,
+			@PathVariable int pageSize) {
+		int totalPages = courseService.findTotalPage(pageSize);
+		List<CourseModel> courses = courseService.findCoursesWithPagination(offset, pageSize);
+		return new ViewResponse(courses, totalPages);
+
 	}
 
-	@GetMapping("/viewCourse")
-	public ResponseEntity<?> getCourses() {
-		try {
-			return ResponseEntity.status(HttpStatus.OK).body(this.courseService.getCourses());
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
-
+	/*
+	 * @GetMapping("/viewCourse")
+	 * public ResponseEntity<?> getCourses() {
+	 * try {
+	 * return
+	 * ResponseEntity.status(HttpStatus.OK).body(this.courseService.getCourses());
+	 * } catch (Exception e) {
+	 * return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	 * }
+	 * }
+	 */
 	@GetMapping("viewCourseById/{courseId}")
 	public ResponseEntity<?> getCourse(@PathVariable String courseId) {
 		try {
