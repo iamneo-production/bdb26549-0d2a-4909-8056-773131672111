@@ -4,6 +4,7 @@ import java.security.PublicKey;
 import java.util.List;
 import com.chessacademy.projectbackend.Models.Course;
 public interface CourseServices {
+    //services
     public List<Course> getCourses();
 
     public Course getCourse(long courseId);

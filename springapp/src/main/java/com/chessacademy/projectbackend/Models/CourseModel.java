@@ -14,6 +14,8 @@ public class Course {
     private int noOfStudents;
     private String courseTiming;
 
+    //constructor
+
     public Course(long courseId, String courseName, String courseDescription, int courseDuration, int noOfStudents , String courseTiming) {
         super();
         this.courseId = courseId;
@@ -23,10 +25,16 @@ public class Course {
         this.noOfStudents = noOfStudents;
         this.courseTiming = courseTiming;
     }
+
+    //default constructor
+
     public Course() {
         super();
         //default
     }
+
+
+    //getter and setter 
 
     public long getCourseId() {
         return courseId;
@@ -76,8 +84,11 @@ public class Course {
         this.courseTiming = courseTiming;
     }
 
+    //toString meathod
+
     @Override
     public String toString() {
+        
         return "Course{" +
                 "courseId=" + courseId +
                 ", courseName='" + courseName + '\'' +

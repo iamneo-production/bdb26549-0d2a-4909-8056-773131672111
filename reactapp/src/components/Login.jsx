@@ -150,7 +150,6 @@ export class Login extends Component {
                         <p></p>
                         <p></p>
                         
-
                         <div className="mb-3">
                             <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
                             <input type="email" value={email} name='email' onChange={this.handleChange} className="form-control" placeholder="Enter Email" id="email" autocomplete="off" required/>

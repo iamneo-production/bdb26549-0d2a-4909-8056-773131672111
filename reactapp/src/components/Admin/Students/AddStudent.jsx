@@ -40,7 +40,7 @@ export function AddStudent() {
       console.log(firstName,`;`,lastName,`;`,gender,`;`,fatherName,`;`,phoneNumber1,`;`,phoneNumber2,`;`,motherName,`;`,
       email,`;`,dob,`;`,studentId,`;`,courseId,`;`,address1,`;`,address2,`;`,city,`;`,state,`;`,pincode,`;`,nationality);
       alert(`Student "${firstName}" added successfully.`)}
-      
+
       const user = {
         firstName:firstName,lastName:lastName,gender:gender,fatherName:fatherName,
         phoneNumber1:phoneNumber1,phoneNumber2:phoneNumber2,motherName:motherName,
@@ -58,7 +58,9 @@ export function AddStudent() {
     }
   return (
          <div>
+           
            <Navbar/>
+
             <div className='addstudentform'>
               <form onSubmit={handleSubmit}>
               <div className="row g-2">
