@@ -27,7 +27,7 @@ public class CourseModel {
 		this.courseTiming = courseTiming;
 
 	}
-
+	//getter and setter
 	public CourseModel() {
 		super();
 		// default
