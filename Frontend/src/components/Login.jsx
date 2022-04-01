@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from "axios";
 import { Link } from 'react-router-dom';
 
-import "./Style.css";
+import "./Styles.css";
 
 export class Login extends Component {
     constructor() {
