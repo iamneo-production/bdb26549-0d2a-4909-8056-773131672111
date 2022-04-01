@@ -23,6 +23,7 @@ import com.chessacademy.projectbackend.Service.InstituteService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+
 @Component
 @RestController
 @CrossOrigin(origins = "*")
@@ -101,7 +102,8 @@ public class AdminController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-
+	
+	//add courses
 	@PostMapping("/addCourse")
 	public ResponseEntity<?> addCourse(@RequestBody CourseModel course) {
 		try {
