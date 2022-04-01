@@ -43,6 +43,7 @@ export class Signup extends Component {
 
         this.setState(state => ({ ...state, errors }));
     };
+    
     // validateUsername=username=>{
     //     const errors={
     //         username:""
