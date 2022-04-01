@@ -1,5 +1,6 @@
 package com.chessacademy.projectbackend.Service;
 
+
 import com.chessacademy.projectbackend.Models.CourseModel;
 import com.chessacademy.projectbackend.Repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,17 +8,21 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+
 import javax.annotation.PostConstruct;
+
 
 @Service
 public class CourseServiceimpl implements CourseServices {
-
+    
+    //services
     @Autowired
     private CourseRepository courseDao;
 
@@ -25,6 +30,7 @@ public class CourseServiceimpl implements CourseServices {
 
     }
 
+    
     @PostConstruct
     public void initDB() {
         List<CourseModel> courses = IntStream.rangeClosed(1, 50)
@@ -34,10 +40,12 @@ public class CourseServiceimpl implements CourseServices {
         courseDao.saveAll(courses);
     }
 
+    
     @Override
     public List<CourseModel> getCourses() {
         return courseDao.findAll();
     }
+    
 
     @Override
     public CourseModel getCourse(long courseId) {
@@ -49,6 +57,7 @@ public class CourseServiceimpl implements CourseServices {
         }
     }
 
+    
     @Override
     public int findTotalPage(int pageSize) {
         List<CourseModel> courses = courseDao.findAll();
@@ -57,6 +66,7 @@ public class CourseServiceimpl implements CourseServices {
         return size;
     }
 
+    
     @Override
     public List<CourseModel> findCoursesWithPagination(int offset, int pageSize) {
 
@@ -65,6 +75,7 @@ public class CourseServiceimpl implements CourseServices {
         // System.out.println(courses);
         return courses;
     }
+    
 
     @Override
     public CourseModel addCourse(CourseModel course) {
