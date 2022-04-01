@@ -25,12 +25,15 @@ public class AuthController {
 
   @Autowired
   UserService userService;
-
+  
+  //adding login data
   @PostMapping("/signin")
   public ResponseEntity<?> authenticateUser(@Valid @RequestBody UserModel loginRequest) {
+    
     return userService.authenticateUser(loginRequest);
   }
-
+  
+  //adding signup data
   @PostMapping("/signup")
   public ResponseEntity<MessageResponse> registerUser(@Valid @RequestBody SignUpRequest signUpRequest,
       HttpServletRequest httpServletRequest) {
