@@ -27,14 +27,6 @@
     width: 40%;
 }
 
-.loginBox {
-    background-color: rgb(204, 186, 203);
-    width: auto;
-    margin: 0px 0px 0px 0px;
-    padding: 0px 50px;
-    box-shadow: 0px 0px 5px black;
-}
-
 .Regox {
     align-items: center;
     width: 600px;

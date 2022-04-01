@@ -1,5 +1,6 @@
 import React,{useState} from 'react';
 import"./AddStudent.css";
+import axios from "axios";
 //import { Link } from 'react-router-dom';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -39,6 +40,21 @@ export function AddStudent() {
       console.log(firstName,`;`,lastName,`;`,gender,`;`,fatherName,`;`,phoneNumber1,`;`,phoneNumber2,`;`,motherName,`;`,
       email,`;`,dob,`;`,studentId,`;`,courseId,`;`,address1,`;`,address2,`;`,city,`;`,state,`;`,pincode,`;`,nationality);
       alert(`Student "${firstName}" added successfully.`)}
+      
+      const user = {
+        firstName:firstName,lastName:lastName,gender:gender,fatherName:fatherName,
+        phoneNumber1:phoneNumber1,phoneNumber2:phoneNumber2,motherName:motherName,
+      email:email,dob:dob,studentId:studentId,courseId:courseId,address1:address1,
+      address2:address2,city:city,state:state,pincode:pincode,nationality:nationality    
+    }
+      axios
+        .post('http://localhost:8080/addstudent', user)
+        .then((response) => {
+            console.log(response);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
     }
   return (
          <div>

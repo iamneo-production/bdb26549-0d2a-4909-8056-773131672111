@@ -43,23 +43,23 @@ export class Signup extends Component {
 
         this.setState(state => ({ ...state, errors }));
     };
-    validateUsername=username=>{
-        const errors={
-            username:""
-        };
-        if (this.state.username.length<2  ) {
-           errors.username= "Username should be of minimum length 3";
-        }
-        else if(this.state.username.search(/[0-9]/)===-1 || (this.state.username.search(/[a-z]/)===-1 &&
-                    this.state.username.search(/[A-Z]/)===-1) )
-                    {   
-            errors.username="Username should be alpha numeric"
-        }
+    // validateUsername=username=>{
+    //     const errors={
+    //         username:""
+    //     };
+    //     if (this.state.username.toString().length<2  ) {
+    //         errors.username= "Username should be of minimum length 3 ";
+    //     }
+    //      else if((this.state.username.search(/[0-9]/)===-1) | (this.state.username.search(/[a-z]/)===-1 &
+    //                  this.state.username.search(/[A-Z]/)===-1))
+    //                  {   
+    //          errors.username="Username should be alpha numeric "
+    //     }
          
    
-       this.setState(state => ({ ...state, errors }));
+    //    this.setState(state => ({ ...state, errors }));
 
-    }
+    // }
     validateMobile=mobileNumber=>{
          const errors={
              mobileNumber:""
@@ -113,9 +113,9 @@ export class Signup extends Component {
             case "mobileNumber":
                 this.validateMobile(value);
                 break;
-            case "username":
-                this.validateUsername(value);
-                break;
+            // case "username":
+            //     this.validateUsername(value);
+            //     break;
             case "password":
               this.validatePassword(value);
               break;
@@ -217,8 +217,8 @@ export class Signup extends Component {
                             {this.state.errors.email && <span style={{color:"yellow"}}>{this.state.errors.email}</span>}
                         </div>
                         <div className="mb-3">
-                            <label htmlFor="exampleInputEmail1" className="form-label">Username</label>
-                            <input type="text" value={username} name='username' onChange={this.handleChange} className="form-control" placeholder="Username" id="username" autocomplete="off" required/>
+                            <label htmlFor="exampleInputEmail1" className="form-label">Name</label>
+                            <input type="text" value={username} name='username' onChange={this.handleChange} className="form-control" placeholder="Enter Name" id="username" autocomplete="off" required/>
                             {this.state.errors.username && <span style={{color:"yellow"}}>{this.state.errors.username}</span>}
                         </div>
                         <div className="mb-3">
