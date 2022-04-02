@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import {Navbar} from "../Navbar.jsx"
+import { Navbar } from "../Navbar.jsx"
 import axios from "axios";
 
-import { Form, Button, Row, Col,Card, Container } from "react-bootstrap"
-
+import { Form, Button, Row, Col, Card, Container } from "react-bootstrap"
+import ReactPaginate from "react-paginate";
 import { Trash } from 'react-bootstrap-icons';
 import { Pencil } from 'react-bootstrap-icons';
 import { useNavigate } from "react-router-dom";
@@ -61,14 +61,23 @@ function Viewacademy() {
             }
         );
     }
+
     useEffect(() => {
         getDetails();
     }, []);
+    const [pageNumber, setPageNumber] = useState(0);
+    const usersPerPage = 2;
+    const pagesVisited = pageNumber * usersPerPage;
+    const current = institute.slice(pagesVisited, pagesVisited + usersPerPage);
+    const pageCount = Math.ceil(institute.length / usersPerPage);
 
+    const changePage = ({ selected }) => {
+        setPageNumber(selected);
+    };
     return (
 
         <div>
-            <Navbar/>
+            <Navbar />
             <Form className=" mb-3 p-5" onSubmit={handleSubmit}>
                 <Form.Group className="mb-3 " >
                     <Row>
@@ -89,7 +98,7 @@ function Viewacademy() {
             <Container>
                 <Row xs={1} md={columnsPerRow}>
                     {
-                        institute?.map((academy) => (
+                        current?.map((academy) => (
 
                             <Col >
                                 <Card style={{ width: '18rem' }}>
@@ -127,7 +136,28 @@ function Viewacademy() {
 
             </Button>
 
+            <ReactPaginate
+                previousLabel={"Previous"}
+                nextLabel={"Next"}
+                breakLabel={"..."}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={3}
+                pageCount={pageCount}
+                onPageChange={changePage}
+                pageClassName={"page-item"}
+                pageLinkClassName={"page-link"}
+                previousClassName={"page-item"}
+                previousLinkClassName={"page-link"}
+                nextClassName={"page-item"}
+                nextLinkClassName={"page-link"}
+                breakClassName={"page-item"}
+                breakLinkClassName={"page-link"}
+                activeClassName={"active"}
+                containerClassName={"pagination justify-content-center"}
+
+            />
         </div>
+
     );
 }
 export default Viewacademy;

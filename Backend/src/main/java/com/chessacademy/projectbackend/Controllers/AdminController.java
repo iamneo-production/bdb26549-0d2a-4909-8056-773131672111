@@ -16,9 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.chessacademy.projectbackend.Models.CourseModel;
 import com.chessacademy.projectbackend.Models.InstituteModel;
+import com.chessacademy.projectbackend.Models.StudentModel;
 import com.chessacademy.projectbackend.Service.CourseServices;
 import com.chessacademy.projectbackend.Service.InstituteService;
-
+import com.chessacademy.projectbackend.Service.StudentService;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +39,8 @@ public class AdminController {
 	private CourseServices courseService;
 
 
+	@Autowired
+	private StudentService studentService;
 	//INSTITUTE CONTROLLER
 
 	@PostMapping("/addInstitute")
@@ -99,16 +102,21 @@ public class AdminController {
 			return  new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-
-	@PostMapping("/addCourse")
-	public ResponseEntity<?> addCourse(@RequestBody CourseModel course){
+	@GetMapping("/viewCourseByName/{courseName}")
+	public ResponseEntity<?> getCourseByName(@PathVariable String courseName){
 		try {
-			return ResponseEntity.status(HttpStatus.OK).body(this.courseService.addCourse(course));
+			return ResponseEntity.status(HttpStatus.OK).body(this.courseService.getCourseByName(courseName));
 		}catch(Exception e){
 			return  new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
 
+	@PostMapping("/addCourse")
+    public CourseModel addCourse(@RequestBody CourseModel course) {
+        return courseService.addNewCourse(course);
+    }
+	
 	@PutMapping("/editCourse/{courseId}")
 	public ResponseEntity<?> updateCourse(@RequestBody CourseModel course){
 		try {
@@ -127,9 +135,8 @@ public class AdminController {
 			return  new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+
 }
-
-
 
 
 

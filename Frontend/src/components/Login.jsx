@@ -58,10 +58,13 @@ export class Login extends Component {
         .post("http://localhost:8080/signin", user,{ headers: authHeader() })
         .then((response) => {
              console.log(response);
-            if(user.email==="sandhyadhulla2001@gmail.com"){
-              window.location.href="/viewAcademy";
+             this.state.loggedIn=true;
+             console.log(this.state.loggedIn);
+             console.log(response.data.roles[0]);
+            if(response.data.roles[0]==="ROLE_ADMIN"){
+              window.location.href="/admin/viewInstitutes";
             }
-            else{
+            else {
               window.location.href="/user/viewacademy";
             }
         })

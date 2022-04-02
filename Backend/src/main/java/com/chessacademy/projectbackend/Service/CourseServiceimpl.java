@@ -1,7 +1,10 @@
 package com.chessacademy.projectbackend.Service;
 
 import com.chessacademy.projectbackend.Models.CourseModel;
+import com.chessacademy.projectbackend.Models.InstituteModel;
 import com.chessacademy.projectbackend.Repository.CourseRepository;
+import com.chessacademy.projectbackend.Repository.InstituteRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +16,9 @@ public class CourseServiceimpl implements CourseServices{
 
     @Autowired
     private CourseRepository courseDao;
+    
+    @Autowired
+    private InstituteRepository instituteRepo;
 
     public CourseServiceimpl(){
 
@@ -35,13 +41,8 @@ public class CourseServiceimpl implements CourseServices{
         }
     }
 
-    @Override
-    public CourseModel addCourse(CourseModel course) {
-
-        courseDao.save(course);
-        return course;
-    }
-
+  
+  
     @Override
     public CourseModel updateCourse(CourseModel course) {
 
@@ -63,4 +64,20 @@ public class CourseServiceimpl implements CourseServices{
         }
 
     }
+
+
+	@Override
+	public CourseModel getCourseByName(String courseName) {
+		// TODO Auto-generated method stub
+		return courseDao.findByCourseName(courseName);
+	}
+
+
+	@Override
+	public CourseModel addNewCourse(CourseModel course) {
+		System.out.println(course.toString());
+		InstituteModel institute = instituteRepo.findByInstituteName(course.getInstitute().getInstituteName());
+		course.setInstitute(institute);
+		return courseDao.save(course);
+	}
 }

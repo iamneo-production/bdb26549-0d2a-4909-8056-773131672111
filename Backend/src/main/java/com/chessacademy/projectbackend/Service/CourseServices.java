@@ -7,10 +7,13 @@ public interface CourseServices {
 
     public CourseModel getCourse(long courseId);
 
-    public CourseModel addCourse(CourseModel course);
 
     public CourseModel updateCourse(CourseModel course);
 
     public String deleteCourse(long parseLong);
+
+	public CourseModel getCourseByName(String courseName);
+
+	public CourseModel addNewCourse(CourseModel course);
 
 }

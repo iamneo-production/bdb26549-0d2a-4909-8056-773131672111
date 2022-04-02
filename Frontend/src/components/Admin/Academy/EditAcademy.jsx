@@ -28,13 +28,16 @@ function EditAcademy() {
             }
         )
     }
+    const backpage=()=>{
+        navigate(`/admin/viewInstitutes`);
+    }
 
     const updateInstitute = (values) => {
         axios.put(`http://localhost:8080/admin/updateInstitute/`+instituteId,values).then(
             res => {
 
                 console.log(res.data);
-                navigate(-1);
+               
             }
         )
     }
@@ -77,7 +80,7 @@ function EditAcademy() {
                                 value={values.instituteName}
                                 placeholder="Enter academy name "
                                 name="instituteName"
-                                onChange={handleChange} />
+                                 />
                         </Col>
                         <Col>
                             <Form.Control type="number"
@@ -97,7 +100,7 @@ function EditAcademy() {
                                 value={values.email}
                                 placeholder="Enter the academy email"
                                 name="email"
-                                onChange={handleChange} />
+                                 />
                         </Col>
                     </Row>
                 </Form.Group>
@@ -128,6 +131,9 @@ function EditAcademy() {
 
                 <Button className="float-end" variant="success" type="submit"  >
                     Update Academy
+                </Button>
+                <Button  variant="success" type="submit"  onClick={() => backpage()}>
+                  Back
                 </Button>
             </Form>
         </div>
