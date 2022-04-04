@@ -15,7 +15,7 @@ public interface StudentService {
     List<StudentModel> viewStudent();
 
     @Transactional
-    StudentModel viewStudentByName(String studentFzirstName);
+    StudentModel viewStudentByName(String studentFirstName);
 
     StudentModel viewStudentById(int studentId);
 
