@@ -1,7 +1,11 @@
 package com.chessacademy.projectbackend.Service;
 
 import com.chessacademy.projectbackend.Models.CourseModel;
+
+import com.chessacademy.projectbackend.Models.InstituteModel;
 import com.chessacademy.projectbackend.Repository.CourseRepository;
+import com.chessacademy.projectbackend.Repository.InstituteRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -9,30 +13,20 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Random;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
-import javax.annotation.PostConstruct;
 
 @Service
-public class CourseServiceimpl implements CourseServices {
+public class CourseServiceimpl implements CourseServices{
 
     @Autowired
     private CourseRepository courseDao;
+    
+    @Autowired
+    private InstituteRepository instituteRepo;
 
-    public CourseServiceimpl() {
+    public CourseServiceimpl(){
 
     }
 
-    @PostConstruct
-    public void initDB() {
-        List<CourseModel> courses = IntStream.rangeClosed(1, 50)
-                .mapToObj(i -> new CourseModel(i, "Course " + i, "Course " + i, new Random().nextInt(100),
-                        new Random().nextInt(500), "5amto6pm"))
-                .collect(Collectors.toList());
-        courseDao.saveAll(courses);
-    }
 
     @Override
     public List<CourseModel> getCourses() {
@@ -41,38 +35,17 @@ public class CourseServiceimpl implements CourseServices {
 
     @Override
     public CourseModel getCourse(long courseId) {
-        CourseModel entity = courseDao.findById(courseId).orElse(null);
-        if (Objects.isNull(entity)) {
+        CourseModel entity=courseDao.findById(courseId).orElse(null);
+        if(Objects.isNull(entity)){
             return null;
-        } else {
+        }
+        else{
             return courseDao.getById(courseId);
         }
     }
 
-    @Override
-    public int findTotalPage(int pageSize) {
-        List<CourseModel> courses = courseDao.findAll();
-        int recordCount = courses.size();
-        int size = recordCount / pageSize + 1;
-        return size;
-    }
-
-    @Override
-    public List<CourseModel> findCoursesWithPagination(int offset, int pageSize) {
-
-        Page<CourseModel> coursespage = courseDao.findAll(PageRequest.of(offset, pageSize));
-        List<CourseModel> courses = coursespage.toList();
-        // System.out.println(courses);
-        return courses;
-    }
-
-    @Override
-    public CourseModel addCourse(CourseModel course) {
-
-        courseDao.save(course);
-        return course;
-    }
-
+  
+  
     @Override
     public CourseModel updateCourse(CourseModel course) {
 
@@ -83,15 +56,46 @@ public class CourseServiceimpl implements CourseServices {
     @Override
     public String deleteCourse(long parseLong) {
 
-        CourseModel entity = courseDao.findById(parseLong).orElse(null);
+        CourseModel entity=courseDao.findById(parseLong).orElse(null);
 
-        if (Objects.isNull(entity)) {
+        if(Objects.isNull(entity)){
             return "CourseID not found ";
 
-        } else {
+        }else{
             courseDao.delete(entity);
             return "deleted";
         }
 
     }
+
+
+	@Override
+	public CourseModel getCourseByName(String courseName) {
+		return courseDao.findByCourseName(courseName);
+	}
+
+
+	@Override
+	public CourseModel addNewCourse(CourseModel course) {
+		InstituteModel institute = instituteRepo.findByInstituteName(course.getInstitute().getInstituteName());
+		course.setInstitute(institute);
+		return courseDao.save(course);
+	}
+
+
+	 @Override
+	    public int findTotalPage(int pageSize) {
+	        List<CourseModel> courses = courseDao.findAll();
+	        int recordCount = courses.size();
+	        int size = recordCount / pageSize + 1;
+	        return size;
+	    }
+
+	 @Override
+	    public List<CourseModel> findCoursesWithPagination(int offset, int pageSize) {
+
+	        Page<CourseModel> coursespage = courseDao.findAll(PageRequest.of(offset, pageSize));
+	        List<CourseModel> courses = coursespage.toList();
+	        return courses;
+	    }
 }

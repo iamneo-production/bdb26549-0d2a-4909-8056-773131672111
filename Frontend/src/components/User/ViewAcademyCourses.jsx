@@ -17,7 +17,7 @@ function ViewAcademyCourses(){
       }
 
     const getDetails = () => {
-        axios.get("http://localhost:8080/admin/viewCourse").then(
+        axios.get("http://localhost:8080/admin/viewCourses").then(
             (response) => {
                 setCourse(response.data);
                 console.log(response.data)
@@ -110,10 +110,7 @@ function ViewAcademyCourses(){
                              ))
                         }
                     </Container>
-                    <div className="float-end">
-                        <a href="/admin/addCourse" className="btn btn-success">
-                        <IoIosAddCircle />Add Course</a>
-                    </div>  
+                    
             </div>
         )
     }

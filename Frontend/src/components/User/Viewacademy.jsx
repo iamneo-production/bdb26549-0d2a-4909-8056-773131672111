@@ -20,7 +20,7 @@ function Viewacademy() {
     setinstituteName("")
   }
     const getDetails = () => {
-        axios.get("http://localhost:8080/admin/viewInstitute").then(
+        axios.get("http://localhost:8080/admin/viewInstitutes").then(
             (response) => {
                 setInstitute(response.data);
                 console.log(response.data)

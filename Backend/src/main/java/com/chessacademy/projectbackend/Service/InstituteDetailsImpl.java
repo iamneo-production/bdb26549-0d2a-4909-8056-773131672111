@@ -14,7 +14,7 @@ public class InstituteDetailsImpl implements InstituteService {
 
 	@Autowired
 	InstituteRepository instituteRepo;
-	
+
 	@Override
 	public InstituteModel addInstitute(InstituteModel user) {
 		// TODO Auto-generated method stub
@@ -30,28 +30,36 @@ public class InstituteDetailsImpl implements InstituteService {
 	@Override
 	public InstituteModel viewInstituteByName(String instituteName) {
 		// TODO Auto-generated method stub
-		return  instituteRepo.findByInstituteName(instituteName);
+		return instituteRepo.findByInstituteName(instituteName);
 	}
 
 	@Override
 	public InstituteModel deleteInstitute(int instituteId) {
 		// TODO Auto-generated method stub
-		instituteRepo.deleteById(instituteId);;
+
+		instituteRepo.deleteById(instituteId);
+		;
 		return null;
 	}
 
 	@Override
-	public InstituteModel updateInstitute(InstituteModel user) {
+	public InstituteModel updateInstitute(int id, InstituteModel user) {
 		// TODO Auto-generated method stub
-		return instituteRepo.save(user);
+		InstituteModel institute = instituteRepo.findByInstituteId(id);
+		institute.setInstituteName(user.getInstituteName());
+		institute.setInstituteDescription(user.getInstituteDescription());
+		institute.setInstituteAddress(user.getInstituteAddress());
+		institute.setInstituteimgurl(user.getInstituteimgurl());
+		institute.setMobile(user.getMobile());
+		institute.setEmail(user.getEmail());
+		return instituteRepo.save(institute);
 	}
 
 	@Override
 	public InstituteModel viewInstituteById(int instituteId) {
 		// TODO Auto-generated method stub
 		return instituteRepo.findByInstituteId(instituteId);
-		
+
 	}
 
-	
 }

@@ -22,6 +22,7 @@ import ViewAcademyCourses from "./components/User/ViewAcademyCourses";
 import { EnrollForm } from "./components/User/EnrollForm";
 import EditAcademy from "./components/Admin/Academy/EditAcademy";
 import EditCourse from "./components/Admin/Courses/EditCourse";
+import ViewStudent from "./components/Admin/Students/ViewStudent";
 
 function App() {
   return (
@@ -40,7 +41,9 @@ function App() {
         <Route exact path="/admin/editCourse/:courseId" element={<EditCourse/>}></Route>
           
         <Route exact path="/admin/addStudent" element={<AddStudent />}></Route>
-        <Route exact path="/admin/updateStudent" element={<UpdateStudent />}></Route>
+        <Route exact path="/admin/editStudent/:studentId" element={<UpdateStudent />}></Route>
+        <Route exact path="/admin/viewStudent" element={<ViewStudent />}></Route>
+
 
 
         {/* USER */}
@@ -49,6 +52,8 @@ function App() {
         <Route exact path='/user/enrolledCourse' element={<EnrolledCourse/>}></Route>
         <Route exact path='/user/viewacademycourses' element={<ViewAcademyCourses/>}></Route> 
         <Route exact path='/user/enrollForm' element={<EnrollForm/>} ></Route>
+
+
 
         <Route
           path="/404"
@@ -66,5 +71,4 @@ function App() {
 }
 
 export default App;
-
 

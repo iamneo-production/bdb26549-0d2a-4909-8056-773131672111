@@ -2,6 +2,7 @@ package com.chessacademy.projectbackend.Controllers;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,12 +17,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.chessacademy.projectbackend.Models.CourseModel;
 import com.chessacademy.projectbackend.Models.InstituteModel;
+import com.chessacademy.projectbackend.Models.StudentModel;
 import com.chessacademy.projectbackend.Payload.Response.ViewResponse;
 import com.chessacademy.projectbackend.Service.CourseServices;
 import com.chessacademy.projectbackend.Service.InstituteService;
+import com.chessacademy.projectbackend.Service.StudentService;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
 
 @Component
 @RestController
@@ -32,10 +36,15 @@ public class AdminController {
 	@Autowired
 	private InstituteService instituteDetailsService;
 
+
 	@Autowired
 	private CourseServices courseService;
 
-	// INSTITUTE CONTROLLER
+
+	@Autowired
+	private StudentService studentService;
+	
+	//INSTITUTE CONTROLLER
 
 	@PostMapping("/addInstitute")
 	public InstituteModel addAcademy(@RequestBody InstituteModel user) {
@@ -72,62 +81,65 @@ public class AdminController {
 
 	}
 
-	// COURSE CONTROLLER
-	@GetMapping("/viewCourse/{offset}/{pageSize}")
-	private ViewResponse getCourseWithPagination(@PathVariable int offset,
-			@PathVariable int pageSize) {
-		int totalPages = courseService.findTotalPage(pageSize);
-		List<CourseModel> courses = courseService.findCoursesWithPagination(offset, pageSize);
-		return new ViewResponse(courses, totalPages);
 
-	}
 
-	/*
-	 * @GetMapping("/viewCourse")
-	 * public ResponseEntity<?> getCourses() {
-	 * try {
-	 * return
-	 * ResponseEntity.status(HttpStatus.OK).body(this.courseService.getCourses());
-	 * } catch (Exception e) {
-	 * return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-	 * }
-	 * }
-	 */
+
+
+	//COURSE CONTROLLER
+
+
+		@GetMapping("/viewCourse/{offset}/{pageSize}")
+		private ViewResponse getCourseWithPagination(@PathVariable int offset,
+				@PathVariable int pageSize) {
+			int totalPages = courseService.findTotalPage(pageSize);
+			List<CourseModel> courses = courseService.findCoursesWithPagination(offset, pageSize);
+			return new ViewResponse(courses, totalPages);
+
+		}
+
+
 	@GetMapping("viewCourseById/{courseId}")
-	public ResponseEntity<?> getCourse(@PathVariable String courseId) {
+	public ResponseEntity<?> getCourse(@PathVariable String courseId){
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(this.courseService.getCourse(Long.parseLong(courseId)));
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}catch(Exception e){
+			return  new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	@GetMapping("/viewCourseByName/{courseName}")
+	public ResponseEntity<?> getCourseByName(@PathVariable String courseName){
+		try {
+			return ResponseEntity.status(HttpStatus.OK).body(this.courseService.getCourseByName(courseName));
+		}catch(Exception e){
+			return  new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
 
 	@PostMapping("/addCourse")
-	public ResponseEntity<?> addCourse(@RequestBody CourseModel course) {
-		try {
-			return ResponseEntity.status(HttpStatus.OK).body(this.courseService.addCourse(course));
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
-
+    public CourseModel addCourse(@RequestBody CourseModel course) {
+        return courseService.addNewCourse(course);
+    }
+	
 	@PutMapping("/editCourse/{courseId}")
-	public ResponseEntity<?> updateCourse(@RequestBody CourseModel course) {
+	public ResponseEntity<?> updateCourse(@RequestBody CourseModel course){
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(this.courseService.updateCourse(course));
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}catch(Exception e){
+			return  new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@DeleteMapping("/deleteCourse/{courseId}")
-	public ResponseEntity<?> deleteCourse(@PathVariable String courseId) {
-		try {
-			return ResponseEntity.status(HttpStatus.OK).body(this.courseService.deleteCourse(Long.parseLong(courseId)));
-		} catch (Exception e) {
-			// return
-			// ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("INTERNAL_SERVER_ERROR");
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	public ResponseEntity<?> deleteCourse(@PathVariable String courseId){
+		try{
+			return  ResponseEntity.status(HttpStatus.OK).body(this.courseService.deleteCourse(Long.parseLong(courseId)));
+		}catch(Exception e){
+			return  new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+
 }
+
+
+

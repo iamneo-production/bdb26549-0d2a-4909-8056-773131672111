@@ -8,10 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.chessacademy.projectbackend.Models.InstituteModel;
 
-
 @Service
 public interface InstituteService {
-	
 
 	InstituteModel addInstitute(InstituteModel user);
 
@@ -22,9 +20,8 @@ public interface InstituteService {
 
 	InstituteModel deleteInstitute(int instituteId);
 
-	InstituteModel updateInstitute(InstituteModel user);
+	InstituteModel updateInstitute(int id, InstituteModel user);
 
 	InstituteModel viewInstituteById(int instituteId);
 
-	
 }

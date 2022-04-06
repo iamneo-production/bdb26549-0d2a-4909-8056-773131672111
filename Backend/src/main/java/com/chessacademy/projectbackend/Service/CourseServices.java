@@ -2,19 +2,22 @@ package com.chessacademy.projectbackend.Service;
 
 import java.util.List;
 import com.chessacademy.projectbackend.Models.CourseModel;
-
 public interface CourseServices {
-    public List<CourseModel> getCourses();
 
     public CourseModel getCourse(long courseId);
 
-    public CourseModel addCourse(CourseModel course);
 
     public CourseModel updateCourse(CourseModel course);
 
     public String deleteCourse(long parseLong);
 
-    public int findTotalPage(int pageSize);
+	public CourseModel getCourseByName(String courseName);
+
+	public CourseModel addNewCourse(CourseModel course);
+	
+	public List<CourseModel> getCourses();
+	
+	public int findTotalPage(int pageSize);
 
     public List<CourseModel> findCoursesWithPagination(int offset,
             int pageSize);

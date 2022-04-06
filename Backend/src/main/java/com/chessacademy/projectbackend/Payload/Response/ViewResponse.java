@@ -3,6 +3,7 @@ package com.chessacademy.projectbackend.Payload.Response;
 import java.util.List;
 
 import com.chessacademy.projectbackend.Models.CourseModel;
+import com.chessacademy.projectbackend.Models.StudentModel;
 
 public class ViewResponse {
     public List<CourseModel> courses;
@@ -12,5 +13,6 @@ public class ViewResponse {
         this.courses = courses;
         this.count = count;
     }
+   
 
 }
