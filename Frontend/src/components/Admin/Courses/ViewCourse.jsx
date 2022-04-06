@@ -23,7 +23,7 @@ function ViewCourse(){
         axios.get("http://localhost:8080/admin/viewCourse/"+pageno+"/"+10).then(
             (response) => {
                 setCourse(response.data.courses);
-                setpageCount(response.data.count-1)
+                setpageCount(response.data.count)
                 console.log(response.data.courses)
 
             }
