@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from "axios";
 import { Link } from 'react-router-dom';
+import authHeader from "./auth-header";
 
 import "./Styles.css";
 
@@ -127,10 +128,13 @@ export class Login extends Component {
         .post("http://localhost:8080/signin", user,{ headers: authHeader() })
         .then((response) => {
              console.log(response);
-            if(user.email==="sandhyadhulla2001@gmail.com"){
-              window.location.href="/viewAcademy";
+             this.state.loggedIn=true;
+             console.log(this.state.loggedIn);
+             console.log(response.data.roles[0]);
+            if(response.data.roles[0]==="ROLE_ADMIN"){
+              window.location.href="/admin/viewInstitutes";
             }
-            else{
+            else {
               window.location.href="/user/viewacademy";
             }
         })
@@ -150,7 +154,7 @@ export class Login extends Component {
 
     return(
         <div className='m'>
-            <div className='container'>
+            <div className='containe'>
                 <div className="Regox">
                     <form className='Regform'onSubmit={this.handleSubmit}>
                         <h1 align ="center" id='h1'>Login</h1>
@@ -183,7 +187,7 @@ export class Login extends Component {
     }
 }
 
-}
+
 
 
 

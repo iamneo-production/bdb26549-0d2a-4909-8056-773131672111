@@ -9,7 +9,7 @@ function EnrolledCourse(){
     const [course, setCourse] = useState([]);
 
     const getDetails = () => {
-        axios.get("http://localhost:8080/admin/viewCourse").then(
+        axios.get("http://localhost:8080/admin/viewAdmission").then(
             (response) => {
                 setCourse(response.data);
                 console.log(response.data)
@@ -42,7 +42,7 @@ function EnrolledCourse(){
                                         </Row>
                                         <Row>
                                             <Col>
-                                                Joined Date:dd/mm/yyyy
+                                                Joined Date:{course.courseduration}
                                             </Col>
                                             <Col>
                                                 Institute Id : 101

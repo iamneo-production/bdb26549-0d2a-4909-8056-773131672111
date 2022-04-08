@@ -5,13 +5,14 @@ import { Form, Button, Card} from "react-bootstrap";
 import Container from 'react-bootstrap/Container';
 import { Row } from 'react-bootstrap'
 import { Col } from 'react-bootstrap';
+import { useNavigate } from "react-router";
 
 const columnsPerRow = 3;
 function Viewacademy() {
-
+    let navigate = useNavigate();
     const [institute, setInstitute] = useState([]);
     const [instituteName, setinstituteName] = useState("");
-   
+  
 
    
   const handleSubmit = (event) => {
@@ -20,7 +21,7 @@ function Viewacademy() {
     setinstituteName("")
   }
     const getDetails = () => {
-        axios.get("http://localhost:8080/admin/viewInstitute").then(
+        axios.get("http://localhost:8080/admin/viewInstitutes").then(
             (response) => {
                 setInstitute(response.data);
                 console.log(response.data)
@@ -37,6 +38,14 @@ function Viewacademy() {
             }
         )
     }
+    const ViewAcademyCourse = (instituteId) => {
+        console.log(instituteId)
+        navigate(`/user/viewAcademyCourses/${instituteId}`,{
+            state:{
+              instituteId
+            },
+          });
+        }      
     useEffect(() => {
         getDetails();
     }, []);
@@ -68,7 +77,7 @@ function Viewacademy() {
                             institute?.map((academy) => (
 
                                 <Col >
-                                    <Card style={{ width: '18rem' }}>
+                                    <Card style={{ width: '18rem' }} onClick={() => ViewAcademyCourse(academy.instituteId)}>
                                         <Card.Img variant="top" height="200" src={academy.instituteimgurl} />     
                                         <Card.Body>
                                             <Card.Title>{academy.instituteName}</Card.Title>

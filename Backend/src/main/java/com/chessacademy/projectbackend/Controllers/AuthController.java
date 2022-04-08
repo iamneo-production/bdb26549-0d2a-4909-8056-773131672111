@@ -21,6 +21,7 @@ import com.chessacademy.projectbackend.Models.UserModel;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
+
 public class AuthController {
 
   @Autowired

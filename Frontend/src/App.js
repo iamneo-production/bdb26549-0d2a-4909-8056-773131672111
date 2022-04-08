@@ -14,6 +14,7 @@ import ViewAcademy from "./components/Admin/Academy/ViewAcademy";
 import ViewCourse from "./components/Admin/Courses/ViewCourse";
 import AddCourse from "./components/Admin/Courses/AddCourse";
 
+import  ViewStudent from "./components/Admin/Students/ViewStudent";
 import { UpdateStudent } from "./components/Admin/Students/UpdateStudent";
 import { AddStudent } from "./components/Admin/Students/AddStudent";
 import Viewacademy from "./components/User/Viewacademy";
@@ -38,7 +39,8 @@ function App() {
         <Route exact path="/admin/addCourse" element={<AddCourse />}></Route>
         <Route exact path="/admin/viewCourse" element={<ViewCourse />}></Route>
         <Route exact path="/admin/editCourse/:courseId" element={<EditCourse/>}></Route>
-          
+
+        <Route exact path="/admin/ViewStudent" element={<ViewStudent />}></Route>  
         <Route exact path="/admin/addStudent" element={<AddStudent />}></Route>
         <Route exact path="/admin/updateStudent" element={<UpdateStudent />}></Route>
 
@@ -47,7 +49,7 @@ function App() {
 
         <Route exact path="/user/viewacademy" element={<Viewacademy/>}></Route>
         <Route exact path='/user/enrolledCourse' element={<EnrolledCourse/>}></Route>
-        <Route exact path='/user/viewacademycourses' element={<ViewAcademyCourses/>}></Route> 
+        <Route exact path='/user/viewacademycourses/:instituteId' element={<ViewAcademyCourses/>}></Route> 
         <Route exact path='/user/enrollForm' element={<EnrollForm/>} ></Route>
 
         <Route

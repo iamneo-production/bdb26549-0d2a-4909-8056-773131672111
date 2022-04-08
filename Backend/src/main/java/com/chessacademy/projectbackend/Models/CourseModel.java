@@ -1,7 +1,10 @@
 package com.chessacademy.projectbackend.Models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -15,19 +18,21 @@ public class CourseModel {
 	private int courseDuration;
 	private int noOfStudents;
 	private String courseTiming;
+	
+	@ManyToOne(cascade = CascadeType.DETACH)
+	@JoinColumn(name = "instituteId")
+	private InstituteModel institute;
 
-	public CourseModel(long courseId, String courseName, String courseDescription, int courseDuration, int noOfStudents,
-			String courseTiming) {
-		super();
-		this.courseId = courseId;
-		this.courseName = courseName;
-		this.courseDescription = courseDescription;
-		this.courseDuration = courseDuration;
-		this.noOfStudents = noOfStudents;
-		this.courseTiming = courseTiming;
-
+	public InstituteModel getInstitute() {
+		return institute;
 	}
-	//getter and setter
+
+	public void setInstitute(InstituteModel institute) {
+		this.institute = institute;
+	}
+
+	
+
 	public CourseModel() {
 		super();
 		// default
@@ -81,16 +86,22 @@ public class CourseModel {
 		this.courseTiming = courseTiming;
 	}
 
+	public CourseModel(Long courseId, String courseName, String courseDescription, int courseDuration, int noOfStudents,
+			String courseTiming, InstituteModel institute) {
+		super();
+		this.courseId = courseId;
+		this.courseName = courseName;
+		this.courseDescription = courseDescription;
+		this.courseDuration = courseDuration;
+		this.noOfStudents = noOfStudents;
+		this.courseTiming = courseTiming;
+		this.institute = institute;
+	}
+
 	@Override
 	public String toString() {
-		return "Course{" +
-				"courseId=" + courseId +
-				", courseName='" + courseName + '\'' +
-				", courseDescription='" + courseDescription + '\'' +
-				", courseDuration=" + courseDuration +
-				", noOfStudents=" + noOfStudents +
-				", courseName='" + courseName + '\'' +
-				'\'' +
-				'}';
+		return "CourseModel [courseId=" + courseId + ", courseName=" + courseName + ", courseDescription="
+				+ courseDescription + ", courseDuration=" + courseDuration + ", noOfStudents=" + noOfStudents
+				+ ", courseTiming=" + courseTiming + ", institute=" + institute + "]";
 	}
 }

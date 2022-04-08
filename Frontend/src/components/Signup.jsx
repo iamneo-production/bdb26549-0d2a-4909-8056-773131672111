@@ -195,7 +195,7 @@ export class Signup extends Component {
 
     return(
         <div className='m'>
-            <div className='container'>
+            <div className='containe'>
                 <div className="Regox">
                     <form className='Regform'onSubmit={this.handleSubmit}>
                         <h1 align ="center" id='h1'>Register</h1>
