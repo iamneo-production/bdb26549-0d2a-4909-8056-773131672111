@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import authHeader from "./auth-header";
 import { toast } from "react-toastify";
 
-import "./Styles.css";
+import "./StyleL.css";
 
 export class Login extends Component {
     constructor() {
@@ -156,8 +156,8 @@ export class Login extends Component {
 
     return(
         <div className='m'>
-            <div className='containe'>
-                <div className="Regox">
+            <div className='container'>
+                <div className="logbox">
                     <form className='Regform'onSubmit={this.handleSubmit}>
                         <h1 align ="center" id='h1'>Login</h1>
                         <p></p>
