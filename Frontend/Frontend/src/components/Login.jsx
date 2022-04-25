@@ -177,7 +177,7 @@ export class Login extends Component {
 
                         </div>
                         
-                        <button disabled={!isEnabled} type="submit" value="Submit" className="btn btn-primary">Register</button>
+                        <button disabled={!isEnabled} type="submit" value="Submit" className="btn btn-primary">Login</button>
                         
                         <p id='h1'>New User/Admin? <Link to="/signup">Signup</Link></p>
                         
